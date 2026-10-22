@@ -160,20 +160,33 @@ body {
 }
 
 .messages {
+  --thread-gap: 16px;
+  --avatar-center: 26px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--thread-gap);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.messages::before {
+/* Connect avatar centers. The original request starts the thread, so the line stops there. */
+.messages > .message:not(:first-child)::before {
   content: "";
   position: absolute;
-  top: 36px;
-  bottom: 36px;
+  top: 0;
+  left: 17px;
+  width: 1px;
+  height: var(--avatar-center);
+  background: var(--timeline);
+}
+
+.messages > .message:not(.message--start)::after {
+  content: "";
+  position: absolute;
+  top: var(--avatar-center);
+  bottom: calc(var(--thread-gap) * -1);
   left: 17px;
   width: 1px;
   background: var(--timeline);
